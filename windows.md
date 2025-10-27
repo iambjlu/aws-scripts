@@ -11,7 +11,6 @@ AMI_ID="ami-08d8e0922f4f41d4c"
 INSTANCE_TYPE="t3.medium"
 VOLUME_SIZE=35
 KEYPAIR_PREFIX="temp-key"
-CLEAN_KEYPAIR=true    # true = 建完後刪除 AWS 上的 keypair (私鑰本機仍在，腳本最後視情況刪)
 PASSWORD_POLL_INTERVAL=15   # 秒
 PASSWORD_POLL_TIMEOUT=900   # 秒，最多等待 15 分鐘拿密碼
 
