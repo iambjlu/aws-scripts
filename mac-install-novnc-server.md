@@ -1,8 +1,16 @@
-macOS安裝noVNC Server
-使用時連線到 \<IP\>:6080
-輸入使用者名稱和密碼
+# macOS安裝noVNC Server
+使用時連線到 <code>https://\<IP\>:6080</code><br>
+並輸入使用者名稱和密碼<br>
+很重要 一定要https不然有可能會出錯<br><br>
 
-安裝noVNC Server
+
+先決條件：<br>
+可以存取Macintosh桌面環境<br>
+到設定➡️一般➡️共享，開啟螢幕共享總開關<br>
+並確認欲使用使用者有權使用<br><br>
+
+
+## 安裝noVNC Server
 終端機執行
 <pre>
 cd ~
@@ -35,7 +43,7 @@ pip install websockify
         UI.initSetting('reconnect_delay', 5000);
 </pre>
 
-使用noVNC Server：設定登入後打開
+## 使用noVNC Server：設定登入後打開
 開機後需要使用自動登入或是手動登入以解密檔案保險箱以啟用此功能
 把這些存成一個sh
 <pre>
@@ -49,7 +57,7 @@ LOGFILE=~/novnc.log
 # 先檢查 websockify 是否已啟動
 if ! pgrep -f "websockify.*6080" > /dev/null; then
   echo "$(date) Starting noVNC..." >> $LOGFILE
-  nohup websockify --web . 6080 localhost:5900 >> $LOGFILE 2>&1 &
+  nohup websockify --web . --cert self.crt --key self.key 6080 localhost:5900  >> $LOGFILE 2>&1 &
 else
   echo "$(date) noVNC already running." >> $LOGFILE
 fi
@@ -60,3 +68,7 @@ chmod +x ~/start-novnc.sh
 </pre>
 之後加入「在登入時打開」
 (設定➡️一般➡️登入項目與延伸功能)
+
+## 使用本地機器測試可用
+
+
