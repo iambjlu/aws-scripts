@@ -48,18 +48,7 @@ pip install websockify
 把這些存成一個sh
 <pre>
 #!/bin/bash
-# 跳到 noVNC 資料夾
-cd ~/noVNC
-
-# 先檢查 websockify 是否已啟動
-if ! pgrep -f "websockify.*6080" > /dev/null; then
-  echo "$(date) Starting noVNC..." >/dev/null 2>&1 &
-  nohup websockify --web . --cert self.crt --key self.key 6080 localhost:5900 >/dev/null 2>&1 &
-  lsof -i :6080
-else
-  echo "$(date) noVNC already running." >/dev/null 2>&1 &
-  lsof -i :6080
-fi
+cd ~/noVNC;nohup websockify --web . --cert self.crt --key self.key 6080 localhost:5900 >/dev/null 2>&1 &
   </pre>
 然後給執行權限
 <pre>
