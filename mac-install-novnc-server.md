@@ -51,24 +51,36 @@ pip install websockify
 # 跳到 noVNC 資料夾
 cd ~/noVNC
 
-# 把 log 存起來方便 debug
-LOGFILE=~/novnc.log
-
 # 先檢查 websockify 是否已啟動
 if ! pgrep -f "websockify.*6080" > /dev/null; then
-  echo "$(date) Starting noVNC..." >> $LOGFILE
-  nohup websockify --web . --cert self.crt --key self.key 6080 localhost:5900  >> $LOGFILE 2>&1 &
+  echo "$(date) Starting noVNC..." >/dev/null 2>&1 &
+  nohup websockify --web . --cert self.crt --key self.key 6080 localhost:5900 >/dev/null 2>&1 &
+  lsof -i :6080
 else
-  echo "$(date) noVNC already running." >> $LOGFILE
+  echo "$(date) noVNC already running." >/dev/null 2>&1 &
+  lsof -i :6080
 fi
   </pre>
 然後給執行權限
 <pre>
-chmod +x ~/start-novnc.sh
+chmod +x ~/noVNC/start-noVNC.sh
 </pre>
 之後加入「在登入時打開」
 (設定➡️一般➡️登入項目與延伸功能)
 
+- 請確保sh檔案預設使用終端機開啟<br>
+在Finder對sh檔案按下輔助按鈕<br>
+並按下「取得資訊」
+<img width="295" height="83" alt="image" src="https://github.com/user-attachments/assets/55fdedcb-6abd-42ce-b5ed-8a2cdbb62139" />
+
+## 如果發生問題要關掉
+查PID
+<pre>lsof -i :6080</pre>
+找到後
+<code>kill -9 \<PID\></code>
+
+
 ## 使用本地機器測試可用
+<img width="1800" height="1077" alt="image" src="https://github.com/user-attachments/assets/a3e605c9-e7c5-4638-8bb2-296866b1329e" />
 
 
